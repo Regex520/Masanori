@@ -45,10 +45,10 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Archive,
 		LinkPreset.About,
 		LinkPreset.Friends,
-
+//*
 		{
 			name: "GitHub",
-			url: "https://github.com/regex520", // Internal links should not include the base path, as it is automatically added
+			url: "https://github.com/", // Internal links should not include the base path, as it is automatically added
 			external: true, // Show an external link icon and will open in a new tab
 		}
 	],
@@ -60,20 +60,20 @@ export const profileConfig: ProfileConfig = {
 	bio: "From China,\nStudent of Senior High\nWeb,Android,Minecraft:)",
 	links: [
 		{
-			name: "Twitter",
-			icon: "fa6-brands:twitter", // Visit https://icones.js.org/ for icon codes
+			name: "Email",
+			icon: "mdi:gmail", // Visit https://icones.js.org/ for icon codes
 			// You will need to install the corresponding icon set if it's not already included
 			// `pnpm add @iconify-json/<icon-set-name>`
-			url: "https://twitter.com",
+			url: "mailto:regex520@gmail.com",
 		},
 		{
 			name: "Steam",
-			icon: "fa6-brands:steam",
-			url: "https://store.steampowered.com",
+			icon: "mdi:steam",
+			url: "https://store.steampowered.com/",
 		},
 		{
 			name: "GitHub",
-			icon: "fa6-brands:github",
+			icon: "mdi:github",
 			url: "https://github.com/regex520",
 		},
 	],
