@@ -26,6 +26,11 @@ export function setHue(hue: number): void {
 }
 
 export async function initMonetTheme(): Promise<void> {
+	// Only run Monet extraction on first visit (no stored hue yet)
+	if (localStorage.getItem("hue")) {
+		return;
+	}
+
 	const defaultHue = getDefaultHue();
 
 	const configCarrier = document.getElementById("config-carrier");

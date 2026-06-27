@@ -202,7 +202,7 @@ import {
 	// SizeObserverPlugin,
 	// ClickScrollPlugin
 } from 'overlayscrollbars';
-import {getHue, getStoredTheme, setHue, setTheme, initMonetTheme} from "../utils/setting-utils";
+import {getDefaultHue, getHue, getStoredTheme, setHue, setTheme, initMonetTheme} from "../utils/setting-utils";
 import {pathsEqual, url} from "../utils/url-utils";
 import {
 	BANNER_HEIGHT,
@@ -282,10 +282,14 @@ function loadTheme() {
 }
 
 function loadHue() {
+	// Only extract from banner on first visit (no stored hue)
+	if (!localStorage.getItem("hue")) {
+		initMonetTheme().catch(() => {
+			setHue(getDefaultHue());
+		});
+		return;
+	}
 	setHue(getHue());
-
-	// Monet: extract theme color from banner image (runs after M3 loads)
-	initMonetTheme().catch(() => {});
 }
 
 function initCustomScrollbar() {
