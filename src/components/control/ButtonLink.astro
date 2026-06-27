@@ -1,0 +1,33 @@
+---
+interface Props {
+	badge?: string;
+	url?: string;
+	label?: string;
+}
+const { badge, url, label } = Astro.props;
+---
+<a href={url} aria-label={label}>
+    <button
+        class:list={`
+            w-full h-10 rounded-2xl bg-none transition-all pl-2 hover:pl-3
+            text-[var(--md-sys-color-on-surface-variant)]
+            hover:bg-[var(--md-sys-color-surface-container-highest)]
+            active:bg-[var(--md-sys-color-surface-container-high)]
+        `
+        }
+    >
+        <div class="flex items-center justify-between relative mr-2">
+            <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis text-sm font-medium">
+                <slot></slot>
+            </div>
+            { badge !== undefined && badge !== null && badge !== '' &&
+                <div class="transition px-2 h-6 ml-4 min-w-[1.75rem] rounded-full text-xs font-bold
+                    text-[var(--md-sys-color-on-secondary-container)]
+                    bg-[var(--md-sys-color-secondary-container)]
+                    flex items-center justify-center">
+                    { badge }
+                </div>
+            }
+        </div>
+    </button>
+</a>

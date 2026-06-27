@@ -1,0 +1,32 @@
+---
+import { Icon } from "astro-icon/components";
+import { type NavBarLink } from "../../types/config";
+import { url } from "../../utils/url-utils";
+
+interface Props {
+	links: NavBarLink[];
+}
+
+const links = Astro.props.links;
+---
+<div id="nav-menu-panel" class:list={["float-panel float-panel-closed absolute transition-all fixed right-4 px-2 py-2 rounded-2xl bg-[var(--md-sys-color-surface-container-high)] shadow-md-3 min-w-[12rem]"]}>
+    {links.map((link) => (
+        <a href={link.external ? link.url : url(link.url)} class="group flex justify-between items-center py-2.5 pl-4 pr-3 rounded-2xl gap-8
+            hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-[0.98] transition
+        "
+           target={link.external ? "_blank" : null}
+        >
+            <div class="transition text-sm font-medium text-[var(--md-sys-color-on-surface)] group-hover:text-[var(--md-sys-color-primary)]">
+                {link.name}
+            </div>
+            {!link.external && <Icon name="material-symbols:chevron-right-rounded"
+                  class="transition text-[1.25rem] text-[var(--md-sys-color-on-surface-variant)] group-hover:text-[var(--md-sys-color-primary)]"
+            >
+            </Icon>}
+            {link.external && <Icon name="fa6-solid:arrow-up-right-from-square"
+                  class="transition text-[0.75rem] text-[var(--md-sys-color-on-surface-variant)] group-hover:text-[var(--md-sys-color-primary)] -translate-x-1"
+            >
+            </Icon>}
+        </a>
+    ))}
+</div>

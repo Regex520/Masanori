@@ -1,0 +1,134 @@
+---
+import path from "node:path";
+import License from "@components/misc/License.astro";
+import Markdown from "@components/misc/Markdown.astro";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getSortedPosts } from "@utils/content-utils";
+import { getDir, getPostUrlBySlug } from "@utils/url-utils";
+import { Icon } from "astro-icon/components";
+import { licenseConfig } from "src/config";
+import ImageWrapper from "../../components/misc/ImageWrapper.astro";
+import PostMetadata from "../../components/PostMeta.astro";
+import { profileConfig, siteConfig } from "../../config";
+import { formatDateToYYYYMMDD } from "../../utils/date-utils";
+
+export async function getStaticPaths() {
+	const blogEntries = await getSortedPosts();
+	return blogEntries.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+
+const { remarkPluginFrontmatter } = await entry.render();
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "BlogPosting",
+	headline: entry.data.title,
+	description: entry.data.description || entry.data.title,
+	keywords: entry.data.tags,
+	author: {
+		"@type": "Person",
+		name: profileConfig.name,
+		url: Astro.site,
+	},
+	datePublished: formatDateToYYYYMMDD(entry.data.published),
+	inLanguage: entry.data.lang
+		? entry.data.lang.replace("_", "-")
+		: siteConfig.lang.replace("_", "-"),
+	// TODO include cover image here
+};
+---
+<MainGridLayout banner={entry.data.image} title={entry.data.title} description={entry.data.description} lang={entry.data.lang} setOGTypeArticle={true} headings={headings}>
+    <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+    <div class="flex w-full rounded-[1.75rem] overflow-hidden relative mb-4">
+        <div id="post-container" class:list={["z-10 px-4 sm:px-6 md:px-8 pt-5 md:pt-6 pb-4 relative w-full rounded-[1.75rem]",
+            "bg-[var(--md-sys-color-surface-container-low)] transition"
+        ]}>
+            <!-- word count and reading time -->
+            <div class="flex flex-row gap-3 md:gap-4 mb-4 transition onload-animation">
+                <div class="flex flex-row items-center gap-1.5 text-[0.6875rem] md:text-xs text-[var(--md-sys-color-on-surface-variant)]">
+                    <Icon name="material-symbols:notes-rounded" class="text-xs md:text-sm"></Icon>
+                    <span>{remarkPluginFrontmatter.words} {" " + i18n(I18nKey.wordsCount)}</span>
+                </div>
+                <div class="flex flex-row items-center gap-1.5 text-[0.6875rem] md:text-xs text-[var(--md-sys-color-on-surface-variant)]">
+                    <Icon name="material-symbols:schedule-outline-rounded" class="text-xs md:text-sm"></Icon>
+                    <span>{remarkPluginFrontmatter.minutes} {" " + i18n(remarkPluginFrontmatter.minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}</span>
+                </div>
+            </div>
+
+            <!-- title -->
+            <div class="relative onload-animation">
+                <div
+                    data-pagefind-body data-pagefind-weight="10" data-pagefind-meta="title"
+                    class="transition w-full block font-bold mb-4
+                    text-xl sm:text-2xl md:text-[2rem]/[2.75rem] tracking-tight
+                    text-[var(--md-sys-color-on-surface)]
+                    md:before:w-1 before:h-5 before:rounded-full before:bg-[var(--md-sys-color-primary)]
+                    before:absolute before:top-[0.5rem] md:before:top-[0.625rem] before:left-[-1.125rem]
+                ">
+                    {entry.data.title}
+                </div>
+            </div>
+
+            <!-- metadata -->
+            <div class="onload-animation">
+                <PostMetadata
+                        class="mb-5"
+                        published={entry.data.published}
+                        updated={entry.data.updated}
+                        tags={entry.data.tags}
+                        category={entry.data.category}
+                ></PostMetadata>
+                {!entry.data.image && <div class="border-[var(--md-sys-color-outline-variant)] border-b-[1px] mb-5"></div>}
+            </div>
+
+            <!-- always show cover as long as it has one -->
+
+            {entry.data.image &&
+                <ImageWrapper id="post-cover" src={entry.data.image} basePath={path.join("content/posts/", getDir(entry.id))} class="mb-8 rounded-2xl banner-container onload-animation"/>
+            }
+
+
+            <Markdown class="mb-6 markdown-content onload-animation">
+                <Content />
+            </Markdown>
+
+            {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-2xl license-container onload-animation"></License>}
+
+        </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
+        <a href={entry.data.nextSlug ? getPostUrlBySlug(entry.data.nextSlug) : "#"}
+           class:list={["w-full overflow-hidden active:scale-[0.98] transition", {"pointer-events-none opacity-40": !entry.data.nextSlug}]}>
+            {entry.data.nextSlug && <div class="rounded-2xl w-full h-14 max-w-full px-5 flex items-center !justify-start gap-3
+                bg-[var(--md-sys-color-surface-container-low)] shadow-md-1
+                hover:bg-[var(--md-sys-color-surface-container-high)] transition" >
+                <Icon name="material-symbols:chevron-left-rounded" class="text-[1.5rem] text-[var(--md-sys-color-primary)] shrink-0" />
+                <div class="overflow-hidden overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-sm font-medium text-[var(--md-sys-color-on-surface)]">
+                    {entry.data.nextTitle}
+                </div>
+            </div>}
+        </a>
+
+        <a href={entry.data.prevSlug ? getPostUrlBySlug(entry.data.prevSlug) : "#"}
+           class:list={["w-full overflow-hidden active:scale-[0.98] transition", {"pointer-events-none opacity-40": !entry.data.prevSlug}]}>
+            {entry.data.prevSlug && <div class="rounded-2xl w-full h-14 max-w-full px-5 flex items-center !justify-end gap-3
+                bg-[var(--md-sys-color-surface-container-low)] shadow-md-1
+                hover:bg-[var(--md-sys-color-surface-container-high)] transition">
+                <div class="overflow-hidden overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-sm font-medium text-[var(--md-sys-color-on-surface)]">
+                    {entry.data.prevTitle}
+                </div>
+                <Icon name="material-symbols:chevron-right-rounded" class="text-[1.5rem] text-[var(--md-sys-color-primary)] shrink-0" />
+            </div>}
+        </a>
+    </div>
+
+</MainGridLayout>

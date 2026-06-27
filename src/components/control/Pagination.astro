@@ -1,0 +1,87 @@
+---
+import type { Page } from "astro";
+import { Icon } from "astro-icon/components";
+import { url } from "../../utils/url-utils";
+
+interface Props {
+	page: Page;
+	class?: string;
+	style?: string;
+}
+
+const { page, style } = Astro.props;
+
+const HIDDEN = -1;
+
+const className = Astro.props.class;
+
+const ADJ_DIST = 2;
+const VISIBLE = ADJ_DIST * 2 + 1;
+
+// for test
+let count = 1;
+let l = page.currentPage;
+let r = page.currentPage;
+while (0 < l - 1 && r + 1 <= page.lastPage && count + 2 <= VISIBLE) {
+	count += 2;
+	l--;
+	r++;
+}
+while (0 < l - 1 && count < VISIBLE) {
+	count++;
+	l--;
+}
+while (r + 1 <= page.lastPage && count < VISIBLE) {
+	count++;
+	r++;
+}
+
+let pages: number[] = [];
+if (l > 1) pages.push(1);
+if (l === 3) pages.push(2);
+if (l > 3) pages.push(HIDDEN);
+for (let i = l; i <= r; i++) pages.push(i);
+if (r < page.lastPage - 2) pages.push(HIDDEN);
+if (r === page.lastPage - 2) pages.push(page.lastPage - 1);
+if (r < page.lastPage) pages.push(page.lastPage);
+
+const getPageUrl = (p: number) => {
+	if (p === 1) return "/";
+	return `/${p}/`;
+};
+---
+
+<div class:list={[className, "flex flex-row gap-2 justify-center"]} style={style}>
+    <a href={page.url.prev || ""} aria-label={page.url.prev ? "Previous Page" : null}
+       class:list={["flex items-center justify-center rounded-2xl text-[var(--md-sys-color-on-surface-variant)] w-10 h-10 transition",
+           "hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-95",
+           {"opacity-30 pointer-events-none": page.url.prev == undefined}
+       ]}
+    >
+        <Icon name="material-symbols:chevron-left-rounded" class="text-[1.5rem]"></Icon>
+    </a>
+    <div class="bg-[var(--md-sys-color-surface-container-low)] flex flex-row rounded-2xl items-center font-medium shadow-md-1">
+        {pages.map((p) => {
+            if (p == HIDDEN)
+                return <Icon name="material-symbols:more-horiz" class="mx-1 text-[var(--md-sys-color-on-surface-variant)]"/>;
+            if (p == page.currentPage)
+                return <div class="h-10 w-10 rounded-2xl bg-[var(--md-sys-color-primary)] flex items-center justify-center
+                    font-bold text-sm text-[var(--md-sys-color-on-primary)]"
+                >
+                    {p}
+                </div>
+            return <a href={url(getPageUrl(p))} aria-label={`Page ${p}`}
+                class="flex items-center justify-center w-10 h-10 rounded-2xl text-sm text-[var(--md-sys-color-on-surface-variant)]
+                hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-95 transition"
+            >{p}</a>
+        })}
+    </div>
+    <a href={page.url.next || ""} aria-label={page.url.next ? "Next Page" : null}
+       class:list={["flex items-center justify-center rounded-2xl text-[var(--md-sys-color-on-surface-variant)] w-10 h-10 transition",
+           "hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-95",
+           {"opacity-30 pointer-events-none": page.url.next == undefined}
+       ]}
+    >
+        <Icon name="material-symbols:chevron-right-rounded" class="text-[1.5rem]"></Icon>
+    </a>
+</div>

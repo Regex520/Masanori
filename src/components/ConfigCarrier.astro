@@ -1,0 +1,14 @@
+---
+
+import { siteConfig } from "../config";
+import { url } from "../utils/url-utils";
+
+const bannerUrl = siteConfig.banner.enable && siteConfig.banner.src
+    ? (siteConfig.banner.src.startsWith('/') || siteConfig.banner.src.startsWith('http')
+        ? siteConfig.banner.src
+        : url(siteConfig.banner.src))
+    : "";
+---
+
+<div id="config-carrier" data-hue={siteConfig.themeColor.hue} data-banner={bannerUrl}>
+</div>

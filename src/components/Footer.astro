@@ -1,0 +1,20 @@
+---
+
+import { profileConfig } from "../config";
+import { url } from "../utils/url-utils";
+
+const currentYear = new Date().getFullYear();
+---
+
+<div class="transition border-t border-[var(--md-sys-color-outline-variant)] my-8 mx-16"></div>
+<div class="transition rounded-2xl mb-10 flex flex-col items-center justify-center px-6 py-5
+    bg-[var(--md-sys-color-surface-container-low)]">
+    <div class="transition text-xs text-[var(--md-sys-color-on-surface-variant)] text-center leading-relaxed">
+        &copy; <span id="copyright-year">{currentYear}</span> {profileConfig.name}. All Rights Reserved. ·
+        <a class="transition font-medium text-[var(--md-sys-color-primary)] hover:underline hover:brightness-110" target="_blank" href={url('rss.xml')}>RSS</a> ·
+        <a class="transition font-medium text-[var(--md-sys-color-primary)] hover:underline hover:brightness-110" target="_blank" href={url('sitemap-index.xml')}>Sitemap</a><br>
+        Powered by
+        <a class="transition font-medium text-[var(--md-sys-color-primary)] hover:underline hover:brightness-110" target="_blank" href="https://astro.build">Astro</a> &
+        <a class="transition font-medium text-[var(--md-sys-color-primary)] hover:underline hover:brightness-110" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a>
+    </div>
+</div>
