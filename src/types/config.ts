@@ -51,10 +51,14 @@ export enum LinkPreset {
 	Friends = 3,
 }
 
-export type NavBarLink = {
+export type NavBarLinkItem = {
 	name: string;
-	url: string;
+	url?: string;
 	external?: boolean;
+};
+
+export type NavBarLink = NavBarLinkItem & {
+	children?: NavBarLinkItem[];
 };
 
 export type NavBarConfig = {

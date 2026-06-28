@@ -31,11 +31,11 @@ export const siteConfig: SiteConfig = {
 	},
 	favicon: [
 		// Leave this array empty to use the default favicon
-		// {
-		//   src: '/favicon/icon.png',    // Path of the favicon, relative to the /public directory
+		 {
+		   src: '/favicon/icon.png',    // Path of the favicon, relative to the /public directory
 		//   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
 		//   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
-		// }
+		 }
 	],
 };
 
@@ -49,8 +49,14 @@ export const navBarConfig: NavBarConfig = {
 		{
 			name: "GitHub",
 			url: "https://github.com/", // Internal links should not include the base path, as it is automatically added
-			external: true, // Show an external link icon and will open in a new tab
-		}
+			external: true, // Set to true for external links, false for internal links
+		},
+		{ 
+            name: "资源导航",
+            children: [
+                { name: "XDA", url: "https://xdaforums.com/",external: true },
+                { name: "PixelOS", url: "https://pixelos.net/", external: true },
+            ],}
 	],
 };
 
@@ -67,15 +73,20 @@ export const profileConfig: ProfileConfig = {
 			url: "mailto:regex520@gmail.com",
 		},
 		{
-			name: "Steam",
-			icon: "mdi:steam",
-			url: "https://store.steampowered.com/",
+			name: "Telegram",
+			icon: "mdi:telegram",
+			url: "https://t.me/regex520",
 		},
 		{
 			name: "GitHub",
 			icon: "mdi:github",
 			url: "https://github.com/regex520",
 		},
+		{
+			name: "Bilibili",
+			icon: "ri:bilibili-fill",
+			url: "https://space.bilibili.com/627134711",
+		}
 	],
 };
 

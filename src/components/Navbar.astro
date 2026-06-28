@@ -31,8 +31,32 @@ let links: NavBarLink[] = navBarConfig.links.map(
                 {siteConfig.title}
             </div>
         </a>
-        <div class="hidden md:flex">
+        <div class="hidden md:flex items-center">
             {links.map((l) => {
+                if (l.children && l.children.length > 0) {
+                    return <div class="relative group">
+                        <button class="btn-plain scale-animation rounded-2xl h-10 font-medium px-4 active:scale-95 text-sm">
+                            <div class="flex items-center text-[var(--md-sys-color-on-surface-variant)]">
+                                {l.name}
+                                <Icon name="material-symbols:keyboard-arrow-down-rounded" class="text-[1rem] ml-0.5 transition-transform duration-200 -rotate-90 group-hover:rotate-0"></Icon>
+                            </div>
+                        </button>
+                        <div class="absolute top-full left-0 pt-2 hidden group-hover:block z-50">
+                            <div class="bg-[var(--md-sys-color-surface-container-high)] rounded-2xl p-2 shadow-md-3 min-w-[10rem]">
+                                {l.children.map((child) => (
+                                    <a href={child.external ? child.url : url(child.url)}
+                                       target={child.external ? "_blank" : null}
+                                       class="flex justify-between items-center py-2 px-3 rounded-xl
+                                       hover:bg-[var(--md-sys-color-surface-container-highest)] transition text-sm"
+                                    >
+                                        <span class="text-[var(--md-sys-color-on-surface)]">{child.name}</span>
+                                        {child.external && <Icon name="fa6-solid:arrow-up-right-from-square" class="text-[0.65rem] text-[var(--md-sys-color-on-surface-variant)]"></Icon>}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>;
+                }
                 return <a aria-label={l.name} href={l.external ? l.url : url(l.url)} target={l.external ? "_blank" : null}
                           class="btn-plain scale-animation rounded-2xl h-10 font-medium px-4 active:scale-95 text-sm"
                 >

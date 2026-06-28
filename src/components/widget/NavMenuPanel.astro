@@ -10,8 +10,42 @@ interface Props {
 const links = Astro.props.links;
 ---
 <div id="nav-menu-panel" class:list={["float-panel float-panel-closed absolute transition-all fixed right-4 px-2 py-2 rounded-2xl bg-[var(--md-sys-color-surface-container-high)] shadow-md-3 min-w-[12rem]"]}>
-    {links.map((link) => (
-        <a href={link.external ? link.url : url(link.url)} class="group flex justify-between items-center py-2.5 pl-4 pr-3 rounded-2xl gap-8
+    {links.map((link) => {
+        if (link.children && link.children.length > 0) {
+            const childId = `nav-child-${link.name.replace(/\s+/g, '-').toLowerCase()}`;
+            return <div>
+                <button class="nav-dropdown-btn w-full group flex justify-between items-center py-2.5 pl-4 pr-3 rounded-2xl gap-8
+                    hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-[0.98] transition"
+                    data-target={childId}
+                >
+                    <div class="transition text-sm font-medium text-[var(--md-sys-color-on-surface)] group-hover:text-[var(--md-sys-color-primary)]">
+                        {link.name}
+                    </div>
+                    <Icon name="material-symbols:keyboard-arrow-down-rounded"
+                          class="transition text-[1.25rem] text-[var(--md-sys-color-on-surface-variant)] group-hover:text-[var(--md-sys-color-primary)] nav-arrow"
+                          style="transform: rotate(-90deg);"
+                    >
+                    </Icon>
+                </button>
+                <div id={childId} class="hidden pl-4">
+                    {link.children.map((child) => (
+                        <a href={child.external ? child.url : url(child.url)} class="group flex justify-between items-center py-2 pl-4 pr-3 rounded-2xl gap-8
+                            hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-[0.98] transition"
+                           target={child.external ? "_blank" : null}
+                        >
+                            <div class="transition text-sm font-medium text-[var(--md-sys-color-on-surface)] group-hover:text-[var(--md-sys-color-primary)]">
+                                {child.name}
+                            </div>
+                            {child.external && <Icon name="fa6-solid:arrow-up-right-from-square"
+                                  class="transition text-[0.75rem] text-[var(--md-sys-color-on-surface-variant)] group-hover:text-[var(--md-sys-color-primary)] -translate-x-1"
+                            >
+                            </Icon>}
+                        </a>
+                    ))}
+                </div>
+            </div>;
+        }
+        return <a href={link.external ? link.url : url(link.url)} class="group flex justify-between items-center py-2.5 pl-4 pr-3 rounded-2xl gap-8
             hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-[0.98] transition
         "
            target={link.external ? "_blank" : null}
@@ -27,6 +61,30 @@ const links = Astro.props.links;
                   class="transition text-[0.75rem] text-[var(--md-sys-color-on-surface-variant)] group-hover:text-[var(--md-sys-color-primary)] -translate-x-1"
             >
             </Icon>}
-        </a>
-    ))}
+        </a>;
+    })}
 </div>
+
+<script>
+function initNavDropdowns() {
+    const btns = document.querySelectorAll('.nav-dropdown-btn');
+    btns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            const panel = document.getElementById(targetId);
+            const arrow = btn.querySelector('.nav-arrow') as HTMLElement;
+            if (panel && arrow) {
+                panel.classList.toggle('hidden');
+                const isExpanded = arrow.style.transform === 'rotate(0deg)';
+                arrow.style.transform = isExpanded ? 'rotate(-90deg)' : 'rotate(0deg)';
+            }
+        });
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavDropdowns);
+} else {
+    initNavDropdowns();
+}
+</script>
