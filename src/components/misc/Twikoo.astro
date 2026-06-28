@@ -1,0 +1,343 @@
+---
+import I18nKey from "../../i18n/i18nKey";
+import { i18n } from "../../i18n/translation";
+import { twikooConfig } from "../../config";
+import { Icon } from "astro-icon/components";
+
+const { envId, lang } = twikooConfig;
+---
+
+<div class="flex w-full rounded-[1.75rem] overflow-hidden relative mb-4">
+  <div class="z-10 px-4 sm:px-6 md:px-8 pt-5 md:pt-6 pb-4 relative w-full rounded-[1.75rem]
+    bg-[var(--md-sys-color-surface-container-low)] shadow-md-1 transition">
+    <div class="flex items-center gap-2 mb-4">
+      <Icon name="material-symbols:chat-rounded" class="text-xl text-[var(--md-sys-color-primary)]" />
+      <h2 class="text-lg font-bold text-[var(--md-sys-color-on-surface)]">
+        {i18n(I18nKey.comments)}
+        <span class="text-xs font-normal text-[var(--md-sys-color-on-surface-variant)] ml-auto">
+          Powered by <a href="https://twikoo.js.org/" target="_blank" rel="noopener" class="text-[var(--md-sys-color-primary)] hover:underline">Twikoo</a>
+        </span>
+      </h2>
+    </div>
+    <div id="twikoo"></div>
+  </div>
+</div>
+
+<script is:inline set:html={`
+  (function() {
+    var el = document.getElementById("twikoo");
+    if (!el || el.hasAttribute("data-loaded")) return;
+    el.setAttribute("data-loaded", "true");
+
+    var script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.all.min.js";
+    script.onload = function() {
+      if (typeof twikoo === "undefined") return;
+      twikoo.init({
+        envId: "${envId}",
+        el: "#twikoo",
+        lang: "${lang}",
+        path: location.pathname,
+      });
+    };
+    document.body.appendChild(script);
+  })();
+`} />
+
+<style is:global>
+  /* === Twikoo MD3 主题 === */
+
+  /* 容器 */
+  #twikoo, .tk-comments {
+    color: var(--md-sys-color-on-surface) !important;
+  }
+
+  /* 评论卡片 */
+  .tk-comment {
+    border-radius: 0.75rem !important;
+    background: var(--md-sys-color-surface-container) !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    margin-bottom: 0.75rem !important;
+    padding: 1rem !important;
+    transition: background 0.15s !important;
+  }
+  .tk-comment:hover {
+    background: var(--md-sys-color-surface-container-high) !important;
+  }
+
+  /* 子回复 */
+  .tk-replies .tk-comment {
+    background: var(--md-sys-color-surface-container-low) !important;
+  }
+
+  /* 头像 */
+  .tk-avatar {
+    border-radius: 50% !important;
+  }
+
+  /* 昵称 */
+  .tk-nick {
+    color: var(--md-sys-color-on-surface) !important;
+    font-weight: 600 !important;
+  }
+  .tk-nick a {
+    color: var(--md-sys-color-on-surface) !important;
+  }
+
+  /* 时间和其他元信息 */
+  .tk-time, .tk-extras {
+    color: var(--md-sys-color-on-surface-variant) !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* 评论内容 */
+  .tk-content {
+    color: var(--md-sys-color-on-surface) !important;
+    line-height: 1.6 !important;
+  }
+  .tk-content a {
+    color: var(--md-sys-color-primary) !important;
+  }
+  .tk-content code {
+    background: var(--md-sys-color-surface-container-highest) !important;
+    border-radius: 0.5rem !important;
+    padding: 0.125rem 0.375rem !important;
+  }
+  .tk-content pre {
+    background: var(--md-sys-color-surface-container-highest) !important;
+    border-radius: 0.75rem !important;
+  }
+
+  /* 操作按钮 */
+  .tk-actions a, .tk-actions button {
+    color: var(--md-sys-color-primary) !important;
+    border-radius: 624.9375rem !important;
+    padding: 0.25rem 0.75rem !important;
+    transition: background 0.15s !important;
+  }
+  .tk-actions a:hover, .tk-actions button:hover {
+    background: var(--md-sys-color-primary-container) !important;
+  }
+
+  /* 输入框 */
+  .tk-input {
+    transition: border-color 0.15s, box-shadow 0.15s !important;
+  }
+  .tk-input textarea,
+  .tk-input input[type="text"],
+  .tk-input input[type="email"],
+  .tk-input input[type="url"] {
+    background: var(--md-sys-color-surface-container) !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    border-radius: 0.75rem !important;
+    color: var(--md-sys-color-on-surface) !important;
+    padding: 0.75rem 1rem !important;
+    transition: border-color 0.15s, box-shadow 0.15s !important;
+  }
+  .tk-input textarea:focus,
+  .tk-input input:focus {
+    border-color: var(--md-sys-color-primary) !important;
+    outline: none !important;
+    outline: 2px solid var(--md-sys-color-primary) !important;
+    outline-offset: -1px !important;
+  }
+  .tk-input textarea::placeholder,
+  .tk-input input::placeholder {
+    color: var(--md-sys-color-on-surface-variant) !important;
+    opacity: 0.6 !important;
+  }
+
+  /* Owl / 表情 */
+  .OwO {
+    background: var(--md-sys-color-surface-container) !important;
+    border-radius: 0.75rem !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+  }
+  .OwO .OwO-logo {
+    color: var(--md-sys-color-on-surface-variant) !important;
+  }
+  .tk-owo .tk-owo-btn {
+    color: var(--md-sys-color-primary) !important;
+    border-radius: 624.9375rem !important;
+  }
+  .tk-owo .tk-owo-btn:hover {
+    background: var(--md-sys-color-primary-container) !important;
+  }
+
+  /* 提交按钮 */
+  .tk-submit button,
+  .tk-row .el-button,
+  .tk-submit .el-button--primary {
+    background: var(--md-sys-color-primary) !important;
+    color: var(--md-sys-color-on-primary) !important;
+    border: none !important;
+    border-radius: 624.9375rem !important;
+    padding: 0.5rem 1.5rem !important;
+    font-weight: 500 !important;
+    transition: filter 0.15s !important;
+  }
+  .tk-submit button:hover,
+  .tk-row .el-button:hover {
+    filter: brightness(0.9) !important;
+  }
+
+  /* 取消 / 其他按钮 */
+  .tk-cancel button,
+  .tk-row .el-button--default {
+    color: var(--md-sys-color-primary) !important;
+    background: transparent !important;
+    border-radius: 624.9375rem !important;
+  }
+  .tk-cancel button:hover,
+  .tk-row .el-button--default:hover {
+    background: var(--md-sys-color-primary-container) !important;
+  }
+
+  /* 分页 */
+  .tk-pagination button {
+    color: var(--md-sys-color-primary) !important;
+    border-radius: 624.9375rem !important;
+  }
+  .tk-pagination button:hover {
+    background: var(--md-sys-color-primary-container) !important;
+  }
+  .tk-pagination button.active {
+    background: var(--md-sys-color-primary) !important;
+    color: var(--md-sys-color-on-primary) !important;
+  }
+
+  /* 计数标签 */
+  .tk-comments-count {
+    color: var(--md-sys-color-on-surface-variant) !important;
+  }
+  .tk-comments-count span:first-child {
+    color: var(--md-sys-color-on-surface) !important;
+    font-weight: 600 !important;
+  }
+
+  /* 空状态 */
+  .tk-comments .no-comments {
+    color: var(--md-sys-color-on-surface-variant) !important;
+    text-align: center !important;
+    padding: 2rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  /* 管理标签 */
+  .tk-tag, .tk-tag-green {
+    background: var(--md-sys-color-primary-container) !important;
+    color: var(--md-sys-color-on-primary-container) !important;
+    border-radius: 624.9375rem !important;
+    padding: 0.125rem 0.5rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* 分割线 */
+  .tk-comment > .tk-main > .tk-row + .tk-row {
+    border-top-color: var(--md-sys-color-outline-variant) !important;
+  }
+
+  /* 错误提示 */
+  .tk-error {
+    color: var(--md-sys-color-error) !important;
+    background: var(--md-sys-color-error-container) !important;
+    border-radius: 0.75rem !important;
+    padding: 0.75rem !important;
+  }
+
+  /* 通知 */
+  .el-message {
+    border-radius: 0.75rem !important;
+  }
+  .el-message--success {
+    background: var(--md-sys-color-primary-container) !important;
+    color: var(--md-sys-color-on-primary-container) !important;
+  }
+  .el-message--error {
+    background: var(--md-sys-color-error-container) !important;
+    color: var(--md-sys-color-on-error-container) !important;
+  }
+
+  /* Element UI 弹窗 */
+  .el-dialog {
+    background: var(--md-sys-color-surface-container-high) !important;
+    border-radius: 1.75rem !important;
+  }
+  .el-dialog__header {
+    color: var(--md-sys-color-on-surface) !important;
+  }
+  .el-dialog__body {
+    color: var(--md-sys-color-on-surface) !important;
+  }
+
+  /* 点赞 */
+  .tk-likes button {
+    color: var(--md-sys-color-on-surface-variant) !important;
+    border-radius: 624.9375rem !important;
+    padding: 0.25rem 0.75rem !important;
+  }
+  .tk-likes button:hover {
+    color: var(--md-sys-color-primary) !important;
+    background: var(--md-sys-color-primary-container) !important;
+  }
+  .tk-likes button.liked {
+    color: var(--md-sys-color-primary) !important;
+  }
+
+  /* 工具栏图标（评论/刷新/设置等）适配主题色 */
+  .tk-icon svg,
+  .tk-icon__svg,
+  .tk-row-actions-start svg,
+  .tk-extra svg,
+  .tk-admin-actions svg {
+    color: var(--md-sys-color-primary) !important;
+    fill: var(--md-sys-color-primary) !important;
+  }
+
+  /* 操作按钮行圆角 */
+  .tk-row-actions-start a,
+  .tk-row-actions-start button,
+  .tk-admin-actions a,
+  .tk-admin-actions button {
+    border-radius: 624.9375rem !important;
+    padding: 0.3rem 0.75rem !important;
+    color: var(--md-sys-color-primary) !important;
+    transition: background 0.15s !important;
+  }
+  .tk-row-actions-start a:hover,
+  .tk-row-actions-start button:hover,
+  .tk-admin-actions a:hover,
+  .tk-admin-actions button:hover {
+    background: var(--md-sys-color-primary-container) !important;
+  }
+
+  /* 管理员面板 */
+  .tk-admin {
+    background: var(--md-sys-color-surface-container) !important;
+    border-radius: 0.75rem !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+  }
+
+  /* 访客信息 */
+  .tk-ip {
+    color: var(--md-sys-color-on-surface-variant) !important;
+    opacity: 0.7 !important;
+  }
+
+  /* 回复区域 */
+  .tk-replies {
+    border-left: 2px solid var(--md-sys-color-outline-variant) !important;
+    padding-left: 1rem !important;
+  }
+
+  /* 加载状态 */
+  .tk-loading {
+    color: var(--md-sys-color-on-surface-variant) !important;
+  }
+
+  /* 滚动条 */
+  .tk-comments::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-outline-variant) !important;
+    border-radius: 4px !important;
+  }
+</style>

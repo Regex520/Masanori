@@ -105,3 +105,9 @@ export type BlogPostData = {
 export type ExpressiveCodeConfig = {
 	theme: string;
 };
+
+export type TwikooConfig = {
+	enable: boolean;
+	envId: string;
+	lang: string;
+};
