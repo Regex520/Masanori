@@ -41,7 +41,9 @@ let links: NavBarLink[] = navBarConfig.links.map(
                                 <Icon name="material-symbols:keyboard-arrow-down-rounded" class="text-[1rem] ml-0.5 transition-transform duration-200 -rotate-90 group-hover:rotate-0"></Icon>
                             </div>
                         </button>
-                        <div class="absolute top-full left-0 pt-2 hidden group-hover:block z-50">
+                        <div class="absolute top-full left-0 pt-2 opacity-0 scale-95 -translate-y-1 pointer-events-none
+                                        group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 group-hover:pointer-events-auto
+                                        transition-all duration-200 ease-out origin-top-left z-50">
                             <div class="bg-[var(--md-sys-color-surface-container-high)] rounded-2xl p-2 shadow-md-3 min-w-[10rem]">
                                 {l.children.map((child) => (
                                     <a href={child.external ? child.url : url(child.url)}

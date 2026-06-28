@@ -27,8 +27,10 @@ const links = Astro.props.links;
                     >
                     </Icon>
                 </button>
-                <div id={childId} class="hidden pl-4">
-                    {link.children.map((child) => (
+                <div id={childId} class="nav-submenu grid transition-all duration-300 ease-out"
+                     style="grid-template-rows: 0fr; opacity: 0;">
+                     <div class="overflow-hidden min-h-0">
+                     {link.children.map((child) => (
                         <a href={child.external ? child.url : url(child.url)} class="group flex justify-between items-center py-2 pl-4 pr-3 rounded-2xl gap-8
                             hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-[0.98] transition"
                            target={child.external ? "_blank" : null}
@@ -42,6 +44,7 @@ const links = Astro.props.links;
                             </Icon>}
                         </a>
                     ))}
+                     </div>
                 </div>
             </div>;
         }
@@ -71,12 +74,19 @@ function initNavDropdowns() {
     btns.forEach((btn) => {
         btn.addEventListener('click', () => {
             const targetId = btn.getAttribute('data-target');
-            const panel = document.getElementById(targetId);
+            const panel = document.getElementById(targetId) as HTMLElement;
             const arrow = btn.querySelector('.nav-arrow') as HTMLElement;
-            if (panel && arrow) {
-                panel.classList.toggle('hidden');
-                const isExpanded = arrow.style.transform === 'rotate(0deg)';
-                arrow.style.transform = isExpanded ? 'rotate(-90deg)' : 'rotate(0deg)';
+            if (!panel || !arrow) return;
+
+            const isExpanded = panel.style.gridTemplateRows === '1fr';
+            if (isExpanded) {
+                panel.style.gridTemplateRows = '0fr';
+                panel.style.opacity = '0';
+                arrow.style.transform = 'rotate(-90deg)';
+            } else {
+                panel.style.gridTemplateRows = '1fr';
+                panel.style.opacity = '1';
+                arrow.style.transform = 'rotate(0deg)';
             }
         });
     });
