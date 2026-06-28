@@ -1,32 +1,21 @@
 ---
 import { Icon } from "astro-icon/components";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { parse } from "yaml";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
-/**
- * 友链数据配置
- * 添加新友链时，只需在 friends 数组中复制一个对象并修改以下字段：
- *   - name: 博客名称
- *   - url: 博客链接
- *   - icon: 头像链接
- *   - desc: 博客描述
- *   - tags: 标签数组（可选）
- */
-const friends = [
-	{
-		name: "Chongxi の咖啡屋",
-		url: "https://xice.cx/",
-		icon: "https://xice.cx/images/chongxi-icon.webp",
-		desc: "Lose yourself to find yourself",
-	},
-    {
-		name: "宝安中学气象社BAMC",
-		url: "https://www.bamc.top",
-		icon: "https://www.bamc.top/logo.png",
-		desc: "宝安中学气象社主页",
-	},
-];
+// 读取并解析 friends.yml
+const ymlPath = join(process.cwd(), "public", "data", "friends.yml");
+const ymlContent = readFileSync(ymlPath, "utf-8");
+const friends = parse(ymlContent).map((item: any) => ({
+    name: item.Name,
+    url: item.URL,
+    icon: item.Icon,
+    desc: item.Desc,
+}));
 ---
 <MainGridLayout title={i18n(I18nKey.friends)} description={i18n(I18nKey.friends)}>
     <div class="flex w-full rounded-2xl overflow-hidden relative min-h-32">
