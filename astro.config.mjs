@@ -103,7 +103,19 @@ export default defineConfig({
           }
       }),
       svelte(),
-      sitemap(),
+      sitemap({
+        serialize(item) {
+          if (/\/posts\//.test(item.url)) {
+            item.changefreq = "weekly";
+            item.priority = 0.8;
+          }
+          if (/\/archive\//.test(item.url)) {
+            item.changefreq = "daily";
+            item.priority = 0.5;
+          }
+          return item;
+        },
+      }),
 	],
 
   markdown: {

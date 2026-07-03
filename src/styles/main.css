@@ -44,6 +44,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
+    opacity: 0;
     transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
   }
   .md3-state-layer:hover::after {
@@ -133,7 +134,7 @@
         @apply transition rounded-md p-1.5 -m-1.5 expand-animation;
     }
     .float-panel {
-        @apply top-[5.25rem] rounded-md-xl overflow-hidden bg-[var(--float-panel-bg)] transition duration-md3-medium2 ease-md3-standard;
+        @apply top-[5.25rem] rounded-md-xl overflow-hidden bg-[var(--float-panel-bg)] transition-all duration-md3-medium2 ease-md3-standard;
         box-shadow: var(--md-sys-elevation-level3);
     }
     :root.dark .float-panel {
