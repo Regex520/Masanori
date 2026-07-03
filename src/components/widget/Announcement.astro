@@ -1,0 +1,25 @@
+---
+import { Icon } from "astro-icon/components";
+import WidgetLayout from "./WidgetLayout.astro";
+
+interface Props {
+	class?: string;
+	style?: string;
+}
+
+const className = Astro.props.class;
+const style = Astro.props.style;
+---
+
+<WidgetLayout name="公告" id="announcement" class={className} style={style}>
+	<div class="flex flex-col gap-2 py-1">
+		<div class="flex items-start gap-2.5 p-2.5 rounded-xl bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)]">
+			<Icon name="material-symbols:campaign-outline-rounded" class="text-[1.125rem] shrink-0 mt-0.5" />
+			<div class="text-xs leading-relaxed">
+				<p class="mb-1.5">欢迎来到 Regex520's Blog！尽量长期更新（大嘘）欢迎捉虫</p>
+				<p>由于我本人为在校学生，工作日无法进行网页维护QAQ。</p>
+				<p>QQ:602502867 求扩列喵！</p>
+			</div>
+		</div>
+	</div>
+</WidgetLayout>
