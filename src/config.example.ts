@@ -31,9 +31,10 @@ export const siteConfig: SiteConfig = {
 		depth: 2,
 	},
 	favicon: [
-		{
-			src: "/favicon/icon.png",  // [CONFIG] 将你的 favicon 放到 /public/favicon/ 目录
-		},
+		// 留空则使用默认 favicon，或在此添加你的 favicon
+		// {
+		// 	src: "/favicon/icon.png",  // 将你的 favicon 放到 /public/favicon/ 目录
+		// },
 	],
 };
 
