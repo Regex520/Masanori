@@ -1,5 +1,6 @@
 # 🍥 Masanori  
-![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen) 
+![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRegex520%2FMasanori.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FRegex520%2FMasanori?ref=badge_shield)
+
 ![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue) 
 
 基于 [Fuwari](https://github.com/saicaca/fuwari) 模板的博客框架，使用 [Astro](https://astro.build) + [Svelte](https://svelte.dev) + [Tailwind CSS](https://tailwindcss.com) 构建。
@@ -128,3 +129,7 @@ export const twikooConfig: TwikooConfig = {
 基于 [MIT License](LICENSE) 许可。
 
 原模板 [Fuwari](https://github.com/saicaca/fuwari) 由 [saicaca](https://github.com/saicaca) 创建。
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRegex520%2FMasanori.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRegex520%2FMasanori?ref=badge_large)
