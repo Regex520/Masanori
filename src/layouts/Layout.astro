@@ -112,6 +112,15 @@ const bannerOffset =
 		<link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
 		<link rel="icon" href={url('/favicon/icon.png')} />
 
+		<!-- Google Analytics -->
+		<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-NH9V6MQB5C"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-NH9V6MQB5C');
+		</script>
+
 		<!-- Anti-FOUC: must run before first paint. Keep in sync with setting-utils.ts:applyThemeToDocument() -->
 		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
 			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
