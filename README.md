@@ -29,7 +29,7 @@
 
 ### 1. 克隆仓库
 ```bash
-git clone https://github.com/your-username/masanori.git
+git clone https://github.com/Regex520/masanori.git
 cd masanori
 ```
 
