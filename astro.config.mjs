@@ -28,7 +28,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://masno.top",
+  site: "https://your-domain.com",  // [CONFIG] 修改为你的域名
   base: "/",
   trailingSlash: "always",
 

@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "astroblog",
+  "name": "your-worker-name",  // [CONFIG] 修改为你的 Worker 名称
   "compatibility_date": "2026-06-27",
   "observability": {
     "enabled": true
