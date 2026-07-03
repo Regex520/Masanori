@@ -3,6 +3,7 @@ import { onMount } from "svelte";
 
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
+import { formatDateToMMDD } from "../utils/date-utils";
 import { getPostUrlBySlug } from "../utils/url-utils";
 
 export let tags: string[];
@@ -30,12 +31,6 @@ interface Group {
 }
 
 let groups: Group[] = [];
-
-function formatDate(date: Date) {
-	const month = (date.getMonth() + 1).toString().padStart(2, "0");
-	const day = date.getDate().toString().padStart(2, "0");
-	return `${month}-${day}`;
-}
 
 function formatTag(tagList: string[]) {
 	return tagList.map((t) => `#${t}`).join(" ");
@@ -111,7 +106,7 @@ onMount(async () => {
                     <div class="flex flex-row justify-start items-center h-full">
                         <!-- date -->
                         <div class="w-[15%] md:w-[10%] transition text-xs text-right text-[var(--md-sys-color-on-surface-variant)]">
-                            {formatDate(post.data.published)}
+                            {formatDateToMMDD(post.data.published)}
                         </div>
 
                         <!-- dot and line -->

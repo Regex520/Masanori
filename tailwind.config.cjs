@@ -1,8 +1,8 @@
-/** @type {import('tailwindcss').Config} */
+﻿/** @type {import('tailwindcss').Config} */
 const defaultTheme = require("tailwindcss/defaultTheme")
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue,mjs}"],
-  darkMode: "class", // allows toggling dark mode manually
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
@@ -11,47 +11,31 @@ module.exports = {
       colors: {
         "md-primary": "var(--md-sys-color-primary)",
         "md-on-primary": "var(--md-sys-color-on-primary)",
-        "md-primary-container":
-          "var(--md-sys-color-primary-container)",
-        "md-on-primary-container":
-          "var(--md-sys-color-on-primary-container)",
+        "md-primary-container": "var(--md-sys-color-primary-container)",
+        "md-on-primary-container": "var(--md-sys-color-on-primary-container)",
         "md-secondary": "var(--md-sys-color-secondary)",
         "md-on-secondary": "var(--md-sys-color-on-secondary)",
-        "md-secondary-container":
-          "var(--md-sys-color-secondary-container)",
-        "md-on-secondary-container":
-          "var(--md-sys-color-on-secondary-container)",
+        "md-secondary-container": "var(--md-sys-color-secondary-container)",
+        "md-on-secondary-container": "var(--md-sys-color-on-secondary-container)",
         "md-tertiary": "var(--md-sys-color-tertiary)",
         "md-on-tertiary": "var(--md-sys-color-on-tertiary)",
-        "md-tertiary-container":
-          "var(--md-sys-color-tertiary-container)",
-        "md-on-tertiary-container":
-          "var(--md-sys-color-on-tertiary-container)",
+        "md-tertiary-container": "var(--md-sys-color-tertiary-container)",
+        "md-on-tertiary-container": "var(--md-sys-color-on-tertiary-container)",
         "md-error": "var(--md-sys-color-error)",
         "md-on-error": "var(--md-sys-color-on-error)",
-        "md-error-container":
-          "var(--md-sys-color-error-container)",
-        "md-on-error-container":
-          "var(--md-sys-color-on-error-container)",
+        "md-error-container": "var(--md-sys-color-error-container)",
+        "md-on-error-container": "var(--md-sys-color-on-error-container)",
         "md-surface": "var(--md-sys-color-surface)",
         "md-on-surface": "var(--md-sys-color-on-surface)",
-        "md-surface-variant":
-          "var(--md-sys-color-surface-variant)",
-        "md-on-surface-variant":
-          "var(--md-sys-color-on-surface-variant)",
-        "md-surface-container-lowest":
-          "var(--md-sys-color-surface-container-lowest)",
-        "md-surface-container-low":
-          "var(--md-sys-color-surface-container-low)",
-        "md-surface-container":
-          "var(--md-sys-color-surface-container)",
-        "md-surface-container-high":
-          "var(--md-sys-color-surface-container-high)",
-        "md-surface-container-highest":
-          "var(--md-sys-color-surface-container-highest)",
+        "md-surface-variant": "var(--md-sys-color-surface-variant)",
+        "md-on-surface-variant": "var(--md-sys-color-on-surface-variant)",
+        "md-surface-container-lowest": "var(--md-sys-color-surface-container-lowest)",
+        "md-surface-container-low": "var(--md-sys-color-surface-container-low)",
+        "md-surface-container": "var(--md-sys-color-surface-container)",
+        "md-surface-container-high": "var(--md-sys-color-surface-container-high)",
+        "md-surface-container-highest": "var(--md-sys-color-surface-container-highest)",
         "md-outline": "var(--md-sys-color-outline)",
-        "md-outline-variant":
-          "var(--md-sys-color-outline-variant)",
+        "md-outline-variant": "var(--md-sys-color-outline-variant)",
       },
       borderRadius: {
         "md-xs": "var(--md-sys-shape-corner-extra-small)",
@@ -67,6 +51,31 @@ module.exports = {
         "md-3": "var(--md-sys-elevation-level3)",
         "md-4": "var(--md-sys-elevation-level4)",
         "md-5": "var(--md-sys-elevation-level5)",
+      },
+      transitionTimingFunction: {
+        "md3-emphasized": "cubic-bezier(0.2, 0.0, 0, 1.0)",
+        "md3-emphasized-decelerate": "cubic-bezier(0.05, 0.7, 0.1, 1.0)",
+        "md3-emphasized-accelerate": "cubic-bezier(0.3, 0.0, 0.8, 0.15)",
+        "md3-standard": "cubic-bezier(0.2, 0.0, 0, 1.0)",
+        "md3-standard-decelerate": "cubic-bezier(0.0, 0.0, 0, 1.0)",
+        "md3-standard-accelerate": "cubic-bezier(0.3, 0.0, 1.0, 1.0)",
+        "md3-legacy": "cubic-bezier(0.4, 0.0, 0.2, 1.0)",
+        "md3-legacy-decelerate": "cubic-bezier(0.0, 0.0, 0.2, 1.0)",
+        "md3-legacy-accelerate": "cubic-bezier(0.4, 0.0, 1.0, 1.0)",
+      },
+      transitionDuration: {
+        "md3-short1": "50ms",
+        "md3-short2": "100ms",
+        "md3-short3": "150ms",
+        "md3-medium1": "200ms",
+        "md3-medium2": "250ms",
+        "md3-medium3": "300ms",
+        "md3-medium4": "350ms",
+        "md3-long1": "400ms",
+        "md3-long2": "450ms",
+        "md3-long3": "500ms",
+        "md3-long4": "550ms",
+        "md3-extra-long1": "1000ms",
       },
     },
   },

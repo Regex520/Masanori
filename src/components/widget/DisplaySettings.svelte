@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
@@ -25,8 +25,7 @@ $: if (hue || hue === 0) {
         >
             {i18n(I18nKey.themeColor)}
             <button aria-label="Reset to Default" class="w-6 h-6 rounded-full flex items-center justify-center transition
-                    bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]
-                    active:scale-90"
+                    bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]"
                     class:opacity-0={hue === defaultHue} class:pointer-events-none={hue === defaultHue} on:click={resetHue}>
                 <Icon icon="fa6-solid:arrow-rotate-left" class="text-[0.7rem]"></Icon>
             </button>

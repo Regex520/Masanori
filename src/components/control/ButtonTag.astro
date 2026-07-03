@@ -1,4 +1,4 @@
----
+﻿---
 interface Props {
 	size?: string;
 	dot?: boolean;
@@ -9,7 +9,7 @@ const { dot, href, label }: Props = Astro.props;
 ---
 <a href={href} aria-label={label} class="inline-flex items-center h-8 text-xs font-medium px-3 rounded-full transition
     bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]
-    hover:bg-[var(--md-sys-color-primary-container)] hover:text-[var(--md-sys-color-on-primary-container)] active:scale-95">
+    hover:bg-[var(--md-sys-color-primary-container)] hover:text-[var(--md-sys-color-on-primary-container)]">
     {dot && <div class="h-1.5 w-1.5 bg-[var(--md-sys-color-on-secondary-container)] rounded-full mr-1.5"></div>}
     <slot></slot>
 </a>

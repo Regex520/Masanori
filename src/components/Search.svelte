@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
@@ -153,7 +153,7 @@ $: if (initialized && keywordMobile) {
 
 <!-- toggle btn for phone/tablet view -->
 <button on:click={togglePanel} aria-label="Search Panel" id="search-switch"
-        class="btn-plain scale-animation lg:!hidden rounded-2xl w-10 h-10 active:scale-90">
+        class="btn-plain scale-animation lg:!hidden rounded-2xl w-10 h-10">
     <Icon icon="material-symbols:search" class="text-[1.25rem]"></Icon>
 </button>
 

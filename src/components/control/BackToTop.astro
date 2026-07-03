@@ -1,11 +1,11 @@
----
+﻿---
 import { Icon } from "astro-icon/components";
 ---
 
 <!-- There can't be a filter on parent element, or it will break `fixed` -->
 <div class="back-to-top-wrapper hidden lg:block">
-    <div id="back-to-top-btn" class="back-to-top-btn hide flex items-center rounded-2xl overflow-hidden transition" onclick="backToTop()">
-        <button aria-label="Back to Top" class="flex items-center justify-center h-14 w-14 rounded-2xl bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] shadow-md-3 transition hover:shadow-md-4 active:scale-95">
+    <div id="back-to-top-btn" class="back-to-top-btn hide flex items-center rounded-md-xl overflow-hidden transition" onclick="backToTop()">
+        <button aria-label="Back to Top" class="flex items-center justify-center h-14 w-14 rounded-md-xl bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] shadow-md-3 md3-state-layer-primary md3-ripple transition duration-md3-medium1 ease-md3-standard hover:shadow-md-4">
             <Icon name="material-symbols:keyboard-arrow-up-rounded" class="text-[2rem] mx-auto"></Icon>
         </button>
     </div>

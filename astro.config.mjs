@@ -159,6 +159,7 @@ export default defineConfig({
 	},
 
   vite: {
+      assetsInclude: ["**/*.yml"],
       build: {
           rollupOptions: {
               onwarn(warning, warn) {

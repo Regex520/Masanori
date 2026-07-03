@@ -1,4 +1,4 @@
----
+﻿---
 import type { Page } from "astro";
 import { Icon } from "astro-icon/components";
 import { url } from "../../utils/url-utils";
@@ -54,7 +54,7 @@ const getPageUrl = (p: number) => {
 <div class:list={[className, "flex flex-row gap-2 justify-center"]} style={style}>
     <a href={page.url.prev || ""} aria-label={page.url.prev ? "Previous Page" : null}
        class:list={["flex items-center justify-center rounded-2xl text-[var(--md-sys-color-on-surface-variant)] w-10 h-10 transition",
-           "hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-95",
+           "hover:bg-[var(--md-sys-color-surface-container-highest)]",
            {"opacity-30 pointer-events-none": page.url.prev == undefined}
        ]}
     >
@@ -72,13 +72,13 @@ const getPageUrl = (p: number) => {
                 </div>
             return <a href={url(getPageUrl(p))} aria-label={`Page ${p}`}
                 class="flex items-center justify-center w-10 h-10 rounded-2xl text-sm text-[var(--md-sys-color-on-surface-variant)]
-                hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-95 transition"
+                hover:bg-[var(--md-sys-color-surface-container-highest)] transition"
             >{p}</a>
         })}
     </div>
     <a href={page.url.next || ""} aria-label={page.url.next ? "Next Page" : null}
        class:list={["flex items-center justify-center rounded-2xl text-[var(--md-sys-color-on-surface-variant)] w-10 h-10 transition",
-           "hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-95",
+           "hover:bg-[var(--md-sys-color-surface-container-highest)]",
            {"opacity-30 pointer-events-none": page.url.next == undefined}
        ]}
     >

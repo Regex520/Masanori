@@ -1,3 +1,12 @@
+﻿/*
+ * CSS custom properties: build-time static defaults.
+ * === DUAL-SOURCE ARCHITECTURE ===
+ * These compile-time values serve as the initial theme, rendered immediately.
+ * At runtime, material-you.ts:applyM3Theme() generates more accurate M3 color
+ * values via Google's Material Color Utilities and overrides them.
+ * When adding/removing a legacy CSS variable (e.g. --primary, --card-bg),
+ * you must update BOTH this file AND the LEGACY_MAPPINGS in material-you.ts.
+ */
 /* utils */
 white(a)
   rgba(255, 255, 255, a)
@@ -11,6 +20,31 @@ rainbow-dark = linear-gradient(to right, oklch(0.70 0.10 0), oklch(0.70 0.10 30)
 :root
   --radius-large 1rem
   --content-delay 150ms
+
+  /* MD3 Motion Easing Curves */
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0.0, 0, 1.0)
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0)
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15)
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0.0, 0, 1.0)
+  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0.0, 0.0, 0, 1.0)
+  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0.0, 1.0, 1.0)
+  --md-sys-motion-easing-legacy: cubic-bezier(0.4, 0.0, 0.2, 1.0)
+  --md-sys-motion-easing-legacy-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1.0)
+  --md-sys-motion-easing-legacy-accelerate: cubic-bezier(0.4, 0.0, 1.0, 1.0)
+
+  /* MD3 Motion Durations */
+  --md-sys-motion-duration-short1: 50ms
+  --md-sys-motion-duration-short2: 100ms
+  --md-sys-motion-duration-short3: 150ms
+  --md-sys-motion-duration-medium1: 200ms
+  --md-sys-motion-duration-medium2: 250ms
+  --md-sys-motion-duration-medium3: 300ms
+  --md-sys-motion-duration-medium4: 350ms
+  --md-sys-motion-duration-long1: 400ms
+  --md-sys-motion-duration-long2: 450ms
+  --md-sys-motion-duration-long3: 500ms
+  --md-sys-motion-duration-long4: 550ms
+  --md-sys-motion-duration-extra-long1: 1000ms
 
   /* Material You 3 Shape Tokens */
   --md-sys-shape-corner-none: 0
@@ -134,11 +168,26 @@ define({
   --md-sys-color-on-primary: #ffffff #1e1e1e
   --md-sys-color-primary-container: oklch(0.91 0.06 var(--hue)) oklch(0.30 0.08 var(--hue))
   --md-sys-color-on-primary-container: oklch(0.35 0.12 var(--hue)) oklch(0.85 0.08 var(--hue))
+
+  --md-sys-color-secondary: oklch(0.65 0.08 var(--hue)) oklch(0.72 0.08 var(--hue))
+  --md-sys-color-on-secondary: #ffffff #1e1e1e
   --md-sys-color-secondary-container: oklch(0.95 0.025 var(--hue)) oklch(0.33 0.035 var(--hue))
   --md-sys-color-on-secondary-container: oklch(0.55 0.12 var(--hue)) oklch(0.75 0.1 var(--hue))
+
+  --md-sys-color-tertiary: oklch(0.55 0.18 calc(var(--hue) + 30)) oklch(0.70 0.15 calc(var(--hue) + 30))
+  --md-sys-color-on-tertiary: #ffffff #1e1e1e
+  --md-sys-color-tertiary-container: oklch(0.90 0.08 calc(var(--hue) + 30)) oklch(0.28 0.10 calc(var(--hue) + 30))
+  --md-sys-color-on-tertiary-container: oklch(0.30 0.12 calc(var(--hue) + 30)) oklch(0.80 0.10 calc(var(--hue) + 30))
+
+  --md-sys-color-error: oklch(0.55 0.24 25) oklch(0.65 0.22 25)
+  --md-sys-color-on-error: #ffffff #1e1e1e
+  --md-sys-color-error-container: oklch(0.93 0.06 25) oklch(0.30 0.12 25)
+  --md-sys-color-on-error-container: oklch(0.30 0.15 25) oklch(0.85 0.08 25)
+
   --md-sys-color-surface: oklch(0.92 0.008 var(--hue)) oklch(0.10 0.006 var(--hue))
   --md-sys-color-on-surface: oklch(0.12 0.01 var(--hue)) oklch(0.92 0.01 var(--hue))
   --md-sys-color-on-surface-variant: oklch(0.38 0.02 var(--hue)) oklch(0.78 0.02 var(--hue))
+  --md-sys-color-surface-variant: oklch(0.88 0.008 var(--hue)) oklch(0.28 0.015 var(--hue))
   --md-sys-color-outline: oklch(0.50 0.02 var(--hue)) oklch(0.55 0.02 var(--hue))
   --md-sys-color-outline-variant: oklch(0.84 0.015 var(--hue)) oklch(0.32 0.02 var(--hue))
 
@@ -149,6 +198,9 @@ define({
   --md-sys-color-surface-container-highest: oklch(0.86 0.015 var(--hue)) oklch(0.26 0.020 var(--hue))
   --md-sys-color-surface-dim: oklch(0.87 0.01 var(--hue)) oklch(0.06 0.008 var(--hue))
   --md-sys-color-surface-bright: oklch(0.99 0.003 var(--hue)) oklch(0.20 0.014 var(--hue))
+
+  --md-sys-color-background: oklch(0.98 0.003 var(--hue)) oklch(0.08 0.005 var(--hue))
+  --md-sys-color-on-background: oklch(0.12 0.01 var(--hue)) oklch(0.92 0.01 var(--hue))
 
   --md-sys-color-surface-tint-color: oklch(0.70 0.14 var(--hue)) oklch(0.75 0.14 var(--hue))
   --md-sys-color-inverse-surface: oklch(0.17 0.015 var(--hue)) oklch(0.90 0.01 var(--hue))

@@ -1,20 +1,20 @@
----
-import { Icon } from "astro-icon/components";
+﻿---
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { Icon } from "astro-icon/components";
 import { parse } from "yaml";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
 // 读取并解析 friends.yml
-const ymlPath = join(process.cwd(), "public", "data", "friends.yml");
+const ymlPath = join(process.cwd(), "src", "data", "friends.yml");
 const ymlContent = readFileSync(ymlPath, "utf-8");
 const friends = parse(ymlContent).map((item: any) => ({
-    name: item.Name,
-    url: item.URL,
-    icon: item.Icon,
-    desc: item.Desc,
+	name: item.Name,
+	url: item.URL,
+	icon: item.Icon,
+	desc: item.Desc,
 }));
 ---
 <MainGridLayout title={i18n(I18nKey.friends)} description={i18n(I18nKey.friends)}>
@@ -27,9 +27,7 @@ const friends = parse(ymlContent).map((item: any) => ({
                     <div class:list={[
                         "group/card flex flex-col w-full rounded-[1.75rem] overflow-hidden relative transition",
                         "bg-[var(--card-bg)]",
-                        "shadow-[0_1px_3px_0_rgba(0,0,0,0.06),0_1px_2px_-1px_rgba(0,0,0,0.04)]",
-                        "ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03]",
-                        "hover:shadow-[0_4px_6px_-1px_rgba(0,0,0,0.08),0_2px_4px_-2px_rgba(0,0,0,0.05)]",
+                        "shadow-md-1 hover:shadow-md-2",
                     ]}>
                         <div class="px-5 md:px-7 pt-5 md:pt-6 pb-5 relative flex flex-col flex-1">
                             <a href={friend.url}
@@ -57,8 +55,7 @@ const friends = parse(ymlContent).map((item: any) => ({
                                 <a href={friend.url}
                                    aria-label={friend.name}
                                    class="hidden md:flex items-center justify-center absolute right-4 top-4 w-11 h-11 rounded-2xl shrink-0
-                                          bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]
-                                          hover:brightness-95 dark:hover:brightness-110 active:scale-95 transition"
+                                          bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] transition"
                                    target="_blank"
                                    rel="noopener noreferrer"
                                 >
@@ -68,8 +65,7 @@ const friends = parse(ymlContent).map((item: any) => ({
 
                             <a href={friend.url}
                                class="md:hidden flex items-center justify-center w-9 h-9 rounded-2xl shrink-0 mt-2 ml-auto
-                                      bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]
-                                      active:scale-90 transition"
+                                      bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] transition"
                                target="_blank"
                                rel="noopener noreferrer"
                             >

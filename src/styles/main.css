@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 
 @layer base {
@@ -10,6 +10,7 @@
   }
 
   body {
+    font: var(--md-sys-typescale-body-large);
     @apply bg-[var(--md-sys-color-surface)] text-[var(--md-sys-color-on-surface)] transition-colors;
   }
 
@@ -20,13 +21,30 @@
   h5 { font: var(--md-sys-typescale-title-medium); }
   h6 { font: var(--md-sys-typescale-title-small); }
 
-  /* MD3 State layer mixin via ::after */
+  button, .btn-label {
+    font: var(--md-sys-typescale-label-large);
+  }
+  .chip-label {
+    font: var(--md-sys-typescale-label-medium);
+  }
+  .caption-text {
+    font: var(--md-sys-typescale-body-small);
+  }
+  .secondary-text {
+    font: var(--md-sys-typescale-body-medium);
+    @apply text-[var(--md-sys-color-on-surface-variant)];
+  }
+
+  /* MD3 State layer via ::after pseudo-element */
   .md3-state-layer {
     @apply relative overflow-hidden;
   }
   .md3-state-layer::after {
     content: '';
-    @apply absolute inset-0 transition-opacity duration-200 pointer-events-none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
   }
   .md3-state-layer:hover::after {
     background-color: var(--md-sys-color-on-surface);
@@ -34,22 +52,78 @@
   }
   .md3-state-layer:active::after {
     opacity: 0.12;
+    transition-duration: 0ms;
+  }
+  .md3-state-layer-primary:hover::after {
+    background-color: var(--md-sys-color-primary);
+    opacity: 0.08;
+  }
+  .md3-state-layer-primary:active::after {
+    opacity: 0.12;
+  }
+  .md3-state-layer-secondary:hover::after {
+    background-color: var(--md-sys-color-secondary);
+    opacity: 0.08;
+  }
+  .md3-state-layer-secondary:active::after {
+    opacity: 0.12;
+  }
+  .md3-state-layer-error:hover::after {
+    background-color: var(--md-sys-color-error);
+    opacity: 0.08;
+  }
+  .md3-state-layer-error:active::after {
+    opacity: 0.12;
+  }
+
+  /* Focus ring for accessibility */
+  .md3-focus-ring:focus-visible {
+    outline: 2px solid var(--md-sys-color-primary);
+    outline-offset: 2px;
+  }
+
+  /* CSS-only Ripple effect */
+  @keyframes md3-ripple {
+    from { transform: translate(-50%, -50%) scale(0); opacity: 0.12; }
+    to   { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+  }
+  .md3-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+  .md3-ripple::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: currentColor;
+    width: 100px;
+    height: 100px;
+    top: var(--ripple-y, 50%);
+    left: var(--ripple-x, 50%);
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+  }
+  .md3-ripple:active::after {
+    animation: md3-ripple 600ms var(--md-sys-motion-easing-standard);
   }
 }
 
 @layer components {
     .card-base {
-        @apply rounded-[1.75rem] overflow-hidden bg-[var(--card-bg)] transition;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.04), 0 1px 2px -1px rgba(0,0,0,0.03), inset 0 0 0 1px rgba(0,0,0,0.02);
+        @apply rounded-md-xl overflow-hidden bg-[var(--card-bg)] transition ease-md3-standard duration-md3-medium2;
+        box-shadow: var(--md-sys-elevation-level1);
     }
     :root.dark .card-base {
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.15), 0 1px 2px -1px rgba(0,0,0,0.1);
+        box-shadow: var(--md-sys-elevation-level1);
+    }
+    .card-base:hover {
+        box-shadow: var(--md-sys-elevation-level2);
     }
     h1, h2, h3, h4, h5, h6, p, a, span, li, ul, ol, blockquote, code, pre, table, th, td, strong {
-        @apply transition;
+        @apply transition duration-md3-medium1 ease-md3-standard;
     }
     .expand-animation {
-        @apply relative before:ease-out before:transition active:bg-none hover:before:bg-[var(--btn-plain-bg-hover)] active:before:bg-[var(--btn-plain-bg-active)] z-0
+        @apply relative before:ease-md3-standard before:transition active:bg-none hover:before:bg-[var(--btn-plain-bg-hover)] active:before:bg-[var(--btn-plain-bg-active)] z-0
         before:absolute before:rounded-[inherit] before:inset-0 before:scale-[0.85] hover:before:scale-100 before:-z-10
     }
     .link {
@@ -59,11 +133,11 @@
         @apply transition rounded-md p-1.5 -m-1.5 expand-animation;
     }
     .float-panel {
-        @apply top-[5.25rem] rounded-[1.75rem] overflow-hidden bg-[var(--float-panel-bg)] transition;
-        box-shadow: 0 4px 8px 3px rgba(0,0,0,0.05), 0 1px 3px 0 rgba(0,0,0,0.03);
+        @apply top-[5.25rem] rounded-md-xl overflow-hidden bg-[var(--float-panel-bg)] transition duration-md3-medium2 ease-md3-standard;
+        box-shadow: var(--md-sys-elevation-level3);
     }
     :root.dark .float-panel {
-        box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2), 0 6px 10px 4px rgba(0,0,0,0.15);
+        box-shadow: var(--md-sys-elevation-level3);
     }
     .float-panel-closed {
         @apply -translate-y-1 opacity-0 pointer-events-none
@@ -73,19 +147,17 @@
     }
 
     .btn-card {
-        @apply transition flex items-center justify-center active:scale-[0.97]
-        bg-[var(--card-bg)] hover:bg-[var(--btn-card-bg-hover)]
-        active:bg-[var(--btn-card-bg-active)] rounded-2xl
+        @apply transition flex items-center justify-center md3-state-layer
+        bg-[var(--card-bg)] rounded-md-lg
     }
     .btn-card.disabled {
-        @apply pointer-events-none text-black/10 dark:text-white/10
+        @apply pointer-events-none opacity-30
     }
     .btn-plain {
-        @apply transition relative flex items-center justify-center bg-none rounded-2xl
-        text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)]
-        active:scale-[0.97];
+        @apply transition relative flex items-center justify-center bg-none rounded-md-lg md3-state-layer
+        text-[var(--md-sys-color-on-surface-variant)];
         &:not(.scale-animation) {
-            @apply hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)]
+            @apply hover:text-[var(--md-sys-color-on-surface)]
         }
         &.scale-animation {
             @apply expand-animation;
@@ -96,9 +168,8 @@
         }
     }
     .btn-regular {
-        @apply transition flex items-center justify-center rounded-2xl active:scale-[0.97]
-        bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] active:bg-[var(--btn-regular-bg-active)]
-        text-[var(--btn-content)]
+        @apply transition flex items-center justify-center rounded-md-lg md3-state-layer-secondary
+        bg-[var(--btn-regular-bg)] text-[var(--btn-content)]
     }
 
     .link-underline {
@@ -149,12 +220,28 @@
     }
 
     .btn-regular-dark {
-        @apply flex items-center justify-center
-        bg-[oklch(0.45_0.01_var(--hue))] hover:bg-[oklch(0.50_0.01_var(--hue))] active:bg-[oklch(0.55_0.01_var(--hue))]
-        dark:bg-[oklch(0.30_0.02_var(--hue))] dark:hover:bg-[oklch(0.35_0.03_var(--hue))] dark:active:bg-[oklch(0.40_0.03_var(--hue))]
+        @apply flex items-center justify-center rounded-md-lg md3-state-layer
+        bg-[oklch(0.45_0.01_var(--hue))] dark:bg-[oklch(0.30_0.02_var(--hue))]
     }
     .btn-regular-dark.success {
         @apply bg-[oklch(0.75_0.14_var(--hue))] dark:bg-[oklch(0.75_0.14_var(--hue))]
+    }
+
+    /* Skeleton loading */
+    @keyframes md3-skeleton-pulse {
+        0%, 100% { opacity: 0.4; }
+        50%      { opacity: 0.8; }
+    }
+    .skeleton {
+        @apply rounded-md-md bg-[var(--md-sys-color-surface-container-highest)];
+        animation: md3-skeleton-pulse 1.5s var(--md-sys-motion-easing-standard) infinite;
+    }
+    .content-entrance {
+        animation: md3-fade-in var(--md-sys-motion-duration-long1) var(--md-sys-motion-easing-emphasized-decelerate);
+    }
+    @keyframes md3-fade-in {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
     }
 }
 
@@ -176,7 +263,7 @@
     width: 10%;
     height: 100%;
     left: calc(50% - 1px);
-    border-left: 2px dashed var(--line-color);
+    border-left: 2px dashed var(--md-sys-color-outline-variant);
     pointer-events: none;
     transition: all 0.3s;
     transform: translateY(-50%);
@@ -187,7 +274,7 @@
 }
 
 .custom-md spoiler {
-  @apply bg-[var(--codeblock-bg)] hover:bg-transparent px-1 py-0.5 overflow-hidden rounded-md transition-all duration-150;
+  @apply bg-[var(--codeblock-bg)] hover:bg-transparent px-1 py-0.5 overflow-hidden rounded-md transition-colors duration-md3-medium2;
 
   &:not(:hover) {
     color: var(--codeblock-bg);

@@ -1,6 +1,6 @@
 ---
 title: 使用OpenCode放空大脑初体验
-published: 2026-08-28
+published: 2026-06-28
 tags: [Code,Blogging,AI,MCP,Ghidra]
 category: AI
 draft: false

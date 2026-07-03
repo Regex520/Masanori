@@ -32,11 +32,11 @@ export const siteConfig: SiteConfig = {
 	},
 	favicon: [
 		// Leave this array empty to use the default favicon
-		 {
-		   src: '/favicon/icon.png',    // Path of the favicon, relative to the /public directory
-		//   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
-		//   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
-		 }
+		{
+			src: "/favicon/icon.png", // Path of the favicon, relative to the /public directory
+			//   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
+			//   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
+		},
 	],
 };
 
@@ -46,18 +46,19 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Archive,
 		LinkPreset.About,
 		LinkPreset.Friends,
-//*
+		//*
 		{
 			name: "GitHub",
 			url: "https://github.com/", // Internal links should not include the base path, as it is automatically added
 			external: true, // Set to true for external links, false for internal links
 		},
-		{ 
-            name: "资源导航",
-            children: [
-                { name: "XDA", url: "https://xdaforums.com/",external: true },
-                { name: "PixelOS", url: "https://pixelos.net/", external: true },
-            ],}
+		{
+			name: "资源导航",
+			children: [
+				{ name: "XDA", url: "https://xdaforums.com/", external: true },
+				{ name: "PixelOS", url: "https://pixelos.net/", external: true },
+			],
+		},
 	],
 };
 
@@ -87,7 +88,7 @@ export const profileConfig: ProfileConfig = {
 			name: "Bilibili",
 			icon: "ri:bilibili-fill",
 			url: "https://space.bilibili.com/627134711",
-		}
+		},
 	],
 };
 

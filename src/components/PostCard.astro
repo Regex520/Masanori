@@ -1,4 +1,4 @@
----
+﻿---
 import type { CollectionEntry } from "astro:content";
 import path from "node:path";
 import { Icon } from "astro-icon/components";
@@ -41,10 +41,8 @@ const hasCover = image !== undefined && image !== null && image !== "";
 const { remarkPluginFrontmatter } = await entry.render();
 ---
 <div class:list={["group/card flex flex-col w-full rounded-[1.75rem] overflow-hidden relative transition",
-    "bg-[var(--card-bg)]",
-    "shadow-[0_1px_3px_0_rgba(0,0,0,0.06),0_1px_2px_-1px_rgba(0,0,0,0.04)]",
-    "ring-1 ring-inset ring-black/[0.03] dark:ring-white/[0.03]",
-    "hover:shadow-[0_4px_6px_-1px_rgba(0,0,0,0.08),0_2px_4px_-2px_rgba(0,0,0,0.05)]",
+    "bg-[var(--md-sys-color-surface-container-low)]",
+    "shadow-md-1 hover:shadow-md-2",
     className]} style={style}>
 
     <!-- Cover image - full width on mobile, side on desktop -->
@@ -104,7 +102,7 @@ const { remarkPluginFrontmatter } = await entry.render();
                 <a href={url} aria-label={title}
                    class="hidden md:flex items-center justify-center absolute right-4 top-4 w-11 h-11 rounded-2xl shrink-0
                    bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]
-                   hover:brightness-95 dark:hover:brightness-110 active:scale-95 transition">
+                   md3-state-layer-secondary transition">
                     <Icon name="material-symbols:chevron-right-rounded" class="text-2xl"></Icon>
                 </a>
             }

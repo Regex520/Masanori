@@ -103,9 +103,8 @@ const bannerOffset =
 		<meta name="generator" content={Astro.generator} />
 		<link rel="icon" href={url('/favicon/icon.png')} />
 
-		<!-- Set the theme before the page is rendered to avoid a flash -->
+		<!-- Anti-FOUC: must run before first paint. Keep in sync with setting-utils.ts:applyThemeToDocument() -->
 		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
-			// Load the theme from local storage
 			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
 			switch (theme) {
 				case LIGHT_MODE:

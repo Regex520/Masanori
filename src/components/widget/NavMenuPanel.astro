@@ -1,4 +1,4 @@
----
+﻿---
 import { Icon } from "astro-icon/components";
 import { type NavBarLink } from "../../types/config";
 import { url } from "../../utils/url-utils";
@@ -15,7 +15,7 @@ const links = Astro.props.links;
             const childId = `nav-child-${link.name.replace(/\s+/g, '-').toLowerCase()}`;
             return <div>
                 <button class="nav-dropdown-btn w-full group flex justify-between items-center py-2.5 pl-4 pr-3 rounded-2xl gap-8
-                    hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-[0.98] transition"
+                    hover:bg-[var(--md-sys-color-surface-container-highest)] transition"
                     data-target={childId}
                 >
                     <div class="transition text-sm font-medium text-[var(--md-sys-color-on-surface)] group-hover:text-[var(--md-sys-color-primary)]">
@@ -32,7 +32,7 @@ const links = Astro.props.links;
                      <div class="overflow-hidden min-h-0">
                      {link.children.map((child) => (
                         <a href={child.external ? child.url : url(child.url)} class="group flex justify-between items-center py-2 pl-4 pr-3 rounded-2xl gap-8
-                            hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-[0.98] transition"
+                            hover:bg-[var(--md-sys-color-surface-container-highest)] transition"
                            target={child.external ? "_blank" : null}
                         >
                             <div class="transition text-sm font-medium text-[var(--md-sys-color-on-surface)] group-hover:text-[var(--md-sys-color-primary)]">
@@ -49,7 +49,7 @@ const links = Astro.props.links;
             </div>;
         }
         return <a href={link.external ? link.url : url(link.url)} class="group flex justify-between items-center py-2.5 pl-4 pr-3 rounded-2xl gap-8
-            hover:bg-[var(--md-sys-color-surface-container-highest)] active:scale-[0.98] transition
+            hover:bg-[var(--md-sys-color-surface-container-highest)] transition
         "
            target={link.external ? "_blank" : null}
         >
